@@ -41,7 +41,40 @@ class PetrolCalFragment : Fragment() {
 
         val petolCard = view.findViewById<CardView>(R.id.petroCard);
 
-        fun onCheckboxClick(view: View){
+        val startDistance = view.findViewById<TextInputEditText>(R.id.startDistance)
+        val endDistance = view.findViewById<TextInputEditText>(R.id.endDistance)
+
+        val distCalculate = view.findViewById<Button>(R.id.distCalculate)
+
+        distCalculate.setOnClickListener {
+
+
+            if (startDistance.text.toString() != "" && endDistance.text.toString() != "") {
+
+                if (endDistance.text.toString().toDouble() > startDistance.text.toString()
+                        .toDouble()) {
+
+                    val startDistanceValue: Double = startDistance.text.toString().toDouble()
+                    val endDistanceValue: Double = endDistance.text.toString().toDouble()
+
+                    val totalDistance: Double = endDistanceValue - startDistanceValue
+                    val formattedDistanceAmt = String.format("%.2f", totalDistance)
+
+                    kmDriven.setText(formattedDistanceAmt)
+
+                } else {
+                    Toast.makeText(context, "End KM Cannot be Less than Start KM", Toast.LENGTH_SHORT).show()
+                }
+
+            } else {
+                Toast.makeText(context, "Enter KM Driven", Toast.LENGTH_SHORT).show()
+            }
+
+
+        }
+
+
+        fun onCheckboxClick(view: View) {
 
 
         }
@@ -50,14 +83,23 @@ class PetrolCalFragment : Fragment() {
 
             if (mileage.text.toString() == "") {
                 // Use the mileage value (integer)
-                Toast.makeText(context, "Enter Mileage. Please enter a number.", Toast.LENGTH_SHORT).show()
-            } else if (petrolPrice.text.toString() == ""){
+                Toast.makeText(context, "Enter Mileage. Please enter a number.", Toast.LENGTH_SHORT)
+                    .show()
+            } else if (petrolPrice.text.toString() == "") {
 
-                Toast.makeText(context, "Enter Petrol Value. Please enter a number.", Toast.LENGTH_SHORT).show()
-            } else if (kmDriven.text.toString() == ""){
+                Toast.makeText(
+                    context,
+                    "Enter Petrol Value. Please enter a number.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (kmDriven.text.toString() == "") {
 
-                Toast.makeText(context, "Enter KM Value. Please enter a number.", Toast.LENGTH_SHORT).show()
-            } else{
+                Toast.makeText(
+                    context,
+                    "Enter KM Value. Please enter a number.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
 
                 val mileageValue: Double = mileage.text.toString().toDouble()
                 val petrolValue: Double = petrolPrice.text.toString().toDouble();
